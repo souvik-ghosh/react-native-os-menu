@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   View,
+  ViewPropTypes,
   UIManager,
   findNodeHandle,
   TouchableWithoutFeedback,
   ActionSheetIOS,
   Platform,
-} from 'react-native';
-import PropTypes from 'prop-types';
+} from "react-native";
+import PropTypes from "prop-types";
 
 export default class Menu extends Component {
   showActionSheet = () => {
     const { options, destructiveButtonIndex, onPress } = this.props;
-    const actions = ['Cancel', ...options];
+    const actions = ["Cancel", ...options];
     ActionSheetIOS.showActionSheetWithOptions(
       {
         options: actions,
@@ -22,9 +23,9 @@ export default class Menu extends Component {
       buttonIndex => {
         onPress(
           actions[buttonIndex],
-          buttonIndex > 0 ? buttonIndex - 1 : undefined
+          buttonIndex > 0 ? buttonIndex - 1 : undefined,
         );
-      }
+      },
     );
   };
 
@@ -35,7 +36,7 @@ export default class Menu extends Component {
   };
 
   onPress = () => {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       this.showActionSheet();
       return;
     }
@@ -50,7 +51,8 @@ export default class Menu extends Component {
           ref={node => {
             this.refNode = node;
           }}
-          style={style}>
+          style={style}
+        >
           {children}
         </View>
       </TouchableWithoutFeedback>
@@ -65,5 +67,5 @@ Menu.propTypes = {
   destructiveButtonIndex: PropTypes.number,
   onError: PropTypes.func,
   children: PropTypes.node,
-  style: PropTypes.style,
+  style: ViewPropTypes.style,
 };
